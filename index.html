@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content=""Thinking with Videos" for Long Video Understanding">
+  <meta name="keywords" content="Thinking-with-Videos, Long Video Understanding">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VideoTemp-o3</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script defer src="./static/js/bulma-carousel.min.js"></script>
+  <script defer src="./static/js/bulma-slider.min.js"></script>
+  <script defer src="./static/js/index.js?v=3"></script>
+</head>
+<body>
+
+<!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <!-- <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+          <a class="navbar-item" href="https://latentfusion.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://photoshape.github.io">
+            PhotoShape
+          </a>
+        </div>
+      </div>
+    </div> -->
+
+  <!-- </div>
+</nav> -->
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"><span style="color:#FF6600;">[ICML 26]</span><br>VideoTemp-o3: Harmonizing Temporal Grounding and Video Understanding in Agentic Thinking-with-Videos</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <span>Wenqi Liu</span><sup>1,*</sup>,</span>
+            <span class="author-block">
+              <span>Yunxiao Wang</span><sup>1,*</sup>,</span>
+            <span class="author-block">
+              <a href="https://mashijie1028.github.io/">Shijie Ma</a><sup>2,*</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://mengliu1991.github.io/">Meng Liu</a><sup>1,†</sup>,
+            </span>
+            <span class="author-block">
+              <span>Qile Su</span><sup>3</sup>,
+            </span><br>
+            <span class="author-block">
+              <span>Tianke Zhang</span><sup>4</sup>,
+            </span>
+            <span class="author-block">
+              <span>Haonan Fan</span><sup>4</sup>,
+            </span>
+            <span class="author-block">
+              <span>Changyi Liu</span><sup>4</sup>,
+            </span>
+            <span class="author-block">
+              <span>Kaiyu Jiang</span><sup>4</sup>,
+            </span>
+            <span class="author-block">
+              <span>Jiankang Chen</span><sup>4</sup>,
+            </span>
+            <span class="author-block">
+              <span>Kaiyu Tang</span><sup>4</sup>,
+            </span><br>
+            <span class="author-block">
+              <span>Bin Wen</span><sup>4,‡</sup>,
+            </span>
+            <span class="author-block">
+              <span>Fan Yang</span><sup>4</sup>,
+            </span>
+            <span class="author-block">
+              <span>Tingting Gao</span><sup>4</sup>,
+            </span>
+            <span class="author-block">
+              <span>Han Li</span><sup>4</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://weiyinwei.github.io/">Yinwei Wei</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="hhttps://xuemengsong.github.io/">Xuemeng Song</a><sup>5,†</sup>
+            </span>
+          </div>
+
+          <br>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>*</sup>Equal Contribution,</span>
+            <span class="author-block"><sup>†</sup>Corresponding Author,</span>
+            <span class="author-block"><sup>‡</sup>Project Leader.</span>
+            <br>
+            <span class="author-block"><sup>1</sup>Shandong University,</span>
+            <span class="author-block"><sup>2</sup>Institute of Automation, Chinese Academy of Sciences,</span>
+            <span class="author-block"><sup>3</sup>Beihang University,</span>
+            <span class="author-block"><sup>4</sup>Kuaishou Technology,</span>
+            <span class="author-block"><sup>5</sup>Southern University of Science and Technology</span>
+          </div>
+
+
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.arxiv.org/pdf/2602.07801"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span> -->
+              <span class="link-block">
+                <a href="https://www.arxiv.org/abs/2602.07801"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/Kwai-Keye/VideoTemp-o3"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <!-- <span>Code</span> -->
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Model Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/Kwai-Keye/VideoTemp-o3"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-hugging-face">🤗</i>
+                  </span>
+                  <span>VideoTemp-o3</span>
+                  </a>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/Kwai-Keye/VideoTemp-o3"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-database"></i>
+                  </span>
+                  <span>Training Data</span>
+                  </a>
+              <!-- Benchmark Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/Kwai-Keye/VideoTemp-Bench"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-chart-bar"></i>
+                  </span>
+                  <span>VideoTemp-Bench</span>
+                  </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/images/main.png" alt="teaser" style="height:100%; width:100%; object-fit:contain;">
+      <h2 class="subtitle has-text-centered">
+        Illustration of the agentic pipeline in VideoTemp-o3. Given the video QA pair, it performs on-demand grounding and refines the initial rough segment. Finally, it produces a reliable answer grounded in the pertinent visual evidence.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+          In long-video understanding, conventional uniform frame sampling often fails to capture key visual evidence, leading to degraded performance and increased hallucinations. To address this, recent agentic thinking-with-videos paradigms have emerged, adopting a localize–clip–answer pipeline in which the model actively identifies relevant video segments, performs dense sampling within those clips, and then produces answers. However, existing methods remain inefficient, suffer from weak localization, and adhere to rigid workflows. To solve these issues, we propose VideoTemp-o3, a unified agentic thinking-with-videos framework that jointly models video grounding and question answering. VideoTemp-o3 exhibits strong localization capability, supports on-demand clipping, and can refine inaccurate localizations. Specifically, in the supervised fine-tuning stage, we design a unified masking mechanism that encourages exploration while preventing noise. For reinforcement learning, we introduce dedicated rewards to mitigate reward hacking. Besides, from the data perspective, we develop an effective pipeline to construct high-quality long video grounded QA data, along with a corresponding benchmark for systematic evaluation across various video durations. Experimental results demonstrate that our method achieves remarkable performance on both long video understanding and grounding.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <!-- <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div> -->
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Data Construction</h2>
+      </div>
+    </div>
+
+    <div class="hero-body">
+      <img src="./static/images/data_pipeline.png" alt="teaser" style="height:100%; width:100%; object-fit:contain;">
+      <h2 class="subtitle has-text-centered">
+        Multi-turn, multi-tool call data curation pipeline.
+      </h2>
+    </div>
+
+    <div class="hero-body">
+      <div class="columns is-centered">
+        <div class="column">
+          <img src="./static/images/sft_data.png" alt="SFT Data" style="height:100%; width:100%; object-fit:contain;">
+        </div>
+        <div class="column">
+          <img src="./static/images/rl_data.png" alt="RL Data" style="height:100%; width:100%; object-fit:contain;">
+        </div>
+      </div>
+      <h2 class="subtitle has-text-centered">
+        Data distribution of SFT data (left) and RL data (right).
+      </h2>
+    </div>
+
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Experiments</h2>
+      </div>
+    </div>
+
+    <h2 class="subtitle has-text-centered">
+      <sup>†</sup> denotes reproduced results using official checkpoints. <b>Bold</b> and <u>underline</u> denotes the best and the second best results.
+    </h2>
+
+    <div class="hero-body">
+      <img src="./static/images/exp_1.png" alt="teaser" style="height:100%; width:100%; object-fit:contain;">
+      <h2 class="subtitle has-text-centered">
+        Main results on long video understanding benchmarks.
+      </h2>
+    </div>
+
+    <div class="hero-body">
+      <div class="columns is-centered">
+        <div class="column">
+          <img src="./static/images/exp_2.png" alt="Temporal Grounding" style="height:100%; width:100%; object-fit:contain;">
+        </div>
+        <div class="column">
+          <img src="./static/images/exp_3.png" alt="Video GQA" style="height:100%; width:100%; object-fit:contain;">
+        </div>
+      </div>
+      <h2 class="subtitle has-text-centered">
+        Results on temporal grounding (left) and video GQA (right) benchmarks.
+      </h2>
+    </div>
+
+    <div class="hero-body">
+      <img src="./static/images/exp_4.png" alt="teaser" style="height:100%; width:100%; object-fit:contain;">
+      <h2 class="subtitle has-text-centered">
+        Performance of temporal grounding (mIoU) and VideoQA (Acc) across various durations in VideoTemp-Bench.
+      </h2>
+    </div>
+
+  </div>
+</section>
+
+
+
+<section class="section" id="cases">
+  <div class="container is-widescreen">
+    <h2 class="title is-3 has-text-centered">Cases</h2>
+
+    <!-- Dot indicators (static for fast rendering) -->
+    <div class="cases-dots" id="cases-dots">
+      <span class="case-dot is-active" data-index="0"></span>
+      <span class="case-dot" data-index="1"></span>
+      <span class="case-dot" data-index="2"></span>
+      <span class="case-dot" data-index="3"></span>
+      <span class="case-dot" data-index="4"></span>
+      <span class="case-dot" data-index="5"></span>
+    </div>
+
+    <!-- Cases wrapper -->
+    <div id="cases-wrapper">
+
+
+      <!-- Case 1 -->
+      <article class="case box is-active" data-case>
+        <div class="columns is-variable is-4">
+          <div class="column is-5">
+            <span class="video-label">📹 Original Video</span>
+            <video controls playsinline width="100%" preload="metadata">
+              <source src="./static/videos/79FMLEeVp7Q.mp4" type="video/mp4">
+            </video>
+
+            <div class="question-box">
+              <div class="question-box-header">
+                <strong>❓ Question</strong>
+              </div>
+              <div class="question-box-content">
+                <p>Determine the interval of "Three people ride a canoe near the base of the mountains."</p>
+                <p class="correct">Ground Truth: [67.57, 102.00]</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="column is-7 match-height-wrapper">
+            <div class="content">
+              <div class="model-output-box">
+                <div class="model-output-header">
+                  <strong>🤔 Turn 1: Grounding</strong>
+                </div>
+                <div class="model-output-content">
+&lt;think&gt; I need to find the scene where three people are canoeing near mountains. I'll scan for this activity. The video shows hiking initially. Around 68 seconds, the camera perspective shifts to a selfie view inside a canoe with three people. They are paddling on a calm lake with mountains directly behind them. This action continues for several seconds. The sequence ends around 97 seconds when the view switches to a first-person perspective. Therefore, the event is contained in this segment. The critical sequence seems to be between 68 and 97 seconds. &lt;/think&gt;&lt;tool_call&gt;{"name": "get_video_clip_frame", "arguments": [{"start_time": 68, "end_time": 97}]}&lt;/tool_call&gt;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="columns is-variable is-4">
+          <div class="column is-5">
+            <span class="video-label">🎬 Clipped Video</span>
+            <video controls playsinline width="100%" preload="metadata">
+              <source src="./static/videos/79FMLEeVp7Q_68_97.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <div class="column is-7 match-height-wrapper">
+            <div class="content">
+              <div class="model-output-box">
+                <div class="model-output-header">
+                  <strong>🤔 Turn 2: Answer</strong>
+                </div>
+                <div class="model-output-content">
+&lt;think&gt; I am looking for the scene where three people are canoeing near mountains. The clip starts at 68 seconds with a selfie view of three people in a canoe on a lake. They are actively paddling, and large mountains are visible behind them. This action continues for the entire duration of the clip. The scene shifts to a first-person perspective at 97 seconds, but it is still on the water with mountains in the background. The entire sequence from 68 to 105 seconds shows the canoeing activity. The entire action seems to be contained between roughly 68 and 105 seconds..&lt;think&gt;&lt;answer&gt;[68, 105]&lt;/answer&gt;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- Case 2 -->
+      <article class="case box" data-case>
+        <div class="columns is-variable is-4">
+          <div class="column is-5">
+            <span class="video-label">📹 Original Video</span>
+            <video controls playsinline width="100%" preload="metadata">
+              <source src="./static/videos/QI9VIulqTCA.mp4" type="video/mp4">
+            </video>
+
+            <div class="question-box">
+              <div class="question-box-header">
+                <strong>❓ Question</strong>
+              </div>
+              <div class="question-box-content">
+                <p>Who is the little iceberg meet first?</p>
+                <ul class="options-list">
+                  <li>A. A little dolphin.</li>
+                  <li>B. A little shark.</li>
+                  <li class="correct">C. A little killer whale.</li>
+                  <li>D. A little turtle.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="column is-7 match-height-wrapper">
+            <div class="content">
+              <div class="model-output-box">
+                <div class="model-output-header">
+                  <strong>🤔 Turn 1: Grounding</strong>
+                </div>
+                <div class="model-output-content">
+&lt;think&gt;The user wants to identify the first creature that the little iceberg meets in the video. I need to find the scene where the iceberg, which has eyes, comes into contact with another animal for the first time. I will scan the video for this interaction. The video starts with the iceberg's creation and growth. Around 48 seconds, the iceberg's eyes appear, giving it life. It then begins to melt. At approximately 1 minute and 20 seconds (80 seconds), the iceberg is shown underwater. Let me focus on this part. Hmm, upon closer inspection, at around 1 minute and 23 seconds (83 seconds), a black and white animal swims into the frame. This is clearly a killer whale, also known as an orca. The iceberg watches the whale curiously. This encounter is the first one depicted. The whale continues to swim around the iceberg for several seconds. Therefore, the first creature the iceberg meets is a killer whale. The relevant sequence starts when the whale appears and ends after they have interacted for a moment.&lt;/think&gt;&lt;tool_call&gt;{"name": "get_video_clip_frame", "arguments": [{"start_time": 83, "end_time": 90}]}&lt;/tool_call&gt;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="columns is-variable is-4">
+          <div class="column is-5">
+            <span class="video-label">🎬 Clipped Video</span>
+            <video controls playsinline width="100%" preload="metadata">
+              <source src="./static/videos/QI9VIulqTCA_83_90.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <div class="column is-7 match-height-wrapper">
+            <div class="content">
+              <div class="model-output-box">
+                <div class="model-output-header">
+                  <strong>🤔 Turn 2: Answer</strong>
+                </div>
+                <div class="model-output-content">
+&lt;think&gt;I am analyzing the clip from 83 to 90 seconds to determine the first creature the iceberg meets. At the start of this segment, around 83 seconds, the camera shows a close-up of the iceberg's face underwater. A black and white fish, identifiable as a killer whale (orca), enters the frame from the left at 84 seconds. The iceberg's eyes follow the whale as it swims past. From 85 to 87 seconds, the whale circles the iceberg, and the iceberg watches it intently. There is no other creature present in this sequence. Based on this clear visual evidence, the first creature the iceberg meets is a killer whale. This confirms option C is correct.&lt;think&gt;&lt;answer&gt;C&lt;/answer&gt;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- Case 3 -->
+      <article class="case box" data-case>
+        <!-- Row 1 -->
+        <div class="columns is-variable is-4">
+          <div class="column is-5">
+            <span class="video-label">📹 Original Video</span>
+            <video controls playsinline width="100%" preload="metadata">
+              <source src="./static/videos/0rCbfsuKdYw.mp4" type="video/mp4">
+            </video>
+
+            <div class="question-box">
+              <div class="question-box-header">
+                <strong>❓ Question</strong>
+              </div>
+              <div class="question-box-content">
+                <p>What is the brand of the TV used with PS2 in the video?</p>
+                <ul class="options-list">
+                  <li class="correct">A. TOSHIBA.</li>
+                  <li>B. BenQ.</li>
+                  <li>C. SAMSUNG.</li>
+                  <li>D. HITACHI.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="column is-7 match-height-wrapper">
+            <div class="content">
+              <div class="model-output-box">
+                <div class="model-output-header">
+                  <strong>🤔 Turn 1: Grounding</strong>
+                </div>
+                <div class="model-output-content">
+&lt;think&gt;The user wants me to identify the brand of the TV used with the PlayStation 2 (PS2) in the video. I need to find the part of the video where the PS2 is unboxed or demonstrated on a TV, and then identify the TV's brand.
+1. Scan for PS2 Segment: The video is about the evolution of PlayStation consoles. I'll skip ahead to the section where the PS2 is discussed. The PS2 section starts around 203 seconds.
+2.  Locate Unboxing/Display: At 203 seconds, the PS2 box is shown. Then, at 215 seconds, the presenter shows the contents of the box, which includes a memory card reader and cables. Following this, at 224 seconds, he takes out the console itself.
+3.  Focus on TV Demonstration: The next logical step would be showing the console in action. Ah, at 237 seconds, the video cuts to a shot of a television displaying a racing game. The game is shown running on two different TVs side-by-side.
+4.  Identify the Brand: Let me look closely at the TV screens. On the left, there is a black television playing the game. This segment directly shows the brand of the TV used for the PS2 demonstration.&lt;/think&gt;&lt;tool_call&gt;{"name": "get_video_clip_frame", "arguments": [{"start_time": 237, "end_time": 241}]}&lt;/tool_call&gt;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <!-- Row 2 -->
+        <div class="columns is-variable is-4">
+          <div class="column is-5">
+            <span class="video-label">🎬 Clipped Video</span>
+            <video controls playsinline width="100%" preload="metadata">
+              <source src="./static/videos/0rCbfsuKdYw_237_241.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <div class="column is-7 match-height-wrapper">
+            <div class="content">
+              <div class="model-output-box">
+                <div class="model-output-header">
+                  <strong>🤔 Turn 2: Answer</strong>
+                </div>
+                <div class="model-output-content">
+&lt;think&gt;I need to identify the brand of the TV used with the PS2 in the provided clip, which runs from 237 to 241 seconds. At 237 seconds, the clip begins with a split-screen view of a racing game. On the left side of the screen, a television is playing the game. Let me look closely at that TV. The brand name is clearly visible on the front bezel. It's a TOSHIBA. The model number is also partially visible. Since the question asks for the brand of the TV used, and the Toshiba TV is prominently featured on the left, it's the most likely candidate for the one being showcased. Therefore, the correct answer is A. TOSHIBA.&lt;think&gt;&lt;answer&gt;A&lt;/answer&gt;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Case 4 -->
+      <article class="case box" data-case>
+        <div class="columns is-variable is-4">
+          <div class="column is-5">
+            <span class="video-label">📹 Original Video</span>
+            <video controls playsinline width="100%" preload="metadata">
+              <source src="./static/videos/HeEyJo838PA.mp4" type="video/mp4">
+            </video>
+
+            <div class="question-box">
+              <div class="question-box-header">
+                <strong>❓ Question</strong>
+              </div>
+              <div class="question-box-content">
+                <p>Why does the mother brown bear in the video make her cubs run to higher ground?</p>
+                <ul class="options-list single-col">
+                  <li>A. Because you can see further from the high ground.</li>
+                  <li>B. Because she spotted two tiger that might kill the cubs.</li>
+                  <li class="correct">C. Because she spotted two adult male brown bears that might kill the cubs.</li>
+                  <li>D. Because it's easier to catch salmon from the high ground.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="column is-7 match-height-wrapper">
+            <div class="content">
+              <div class="model-output-box">
+                <div class="model-output-header">
+                  <strong>🤔 Turn 1: Grounding</strong>
+                </div>
+                <div class="model-output-content">
+&lt;think&gt;The user wants to know why the mother brown bear makes her cubs run to higher ground. I need to find the part of the video where this action occurs and understand the context. I will scan the video for scenes involving a mother bear, her cubs, and higher ground.
+First, I'll look for a mother bear with cubs. The video shows many such scenes. For example, at around 291 seconds, there is a clear shot of a mother bear and her two cubs on a rocky riverbank.
+Next, I need to find the specific moment she tells them to go to higher ground. I'll scrub through the video looking for a command or movement. Ah, at around 306 seconds, the mother bear stands up and begins to speak to her cubs. She gestures with her paws and then points towards the hillside behind them. At 307 seconds, she says something to them, and they immediately react. At 308 seconds, one cub runs ahead, and at 309 seconds, the other cub follows. The action starts at 306 seconds with her command and ends around 311 seconds after both cubs have run up the hill. This provides full context for the action.&lt;/think&gt;&lt;tool_call&gt;{"name": "get_video_clip_frame", "arguments": [{"start_time": 306, "end_time": 311}]}&lt;/tool_call&gt;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="columns is-variable is-4">
+          <div class="column is-5">
+            <span class="video-label">🎬 Clipped Video</span>
+            <video controls playsinline width="100%" preload="metadata">
+              <source src="./static/videos/HeEyJo838PA_306_311.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <div class="column is-7 match-height-wrapper">
+            <div class="content">
+              <div class="model-output-box">
+                <div class="model-output-header">
+                  <strong>🤔 Turn 2: Answer</strong>
+                </div>
+                <div class="model-output-content">
+&lt;think&gt;I need to analyze the provided clip (306-311 seconds) to determine why the mother brown bear tells her cubs to run to higher ground.
+At 306 seconds, the clip shows a mother bear and her two cubs on a rocky riverbank. The mother stands up and gestures with her paw, clearly giving a command.
+At 307 seconds, she speaks to her cubs, and they immediately react.
+At 308 seconds, one cub runs ahead.
+At 309 seconds, the other cub follows.
+They all run up the hill behind them.
+This sequence shows a clear and urgent movement away from the current location. In the context of bear behavior, especially with cubs, such a rapid and coordinated movement is typically a response to a perceived threat. The options must be evaluated based on this direct visual evidence.
+Option A (better visibility) is incorrect; the cubs are moving away from a vantage point, not to it.
+Option B (tigers) is incorrect as the setting is a bear habitat with no tigers present.
+Option D (easier salmon catching) is also incorrect; the cubs wouldn't be sent away while their mother is fishing. 
+Option C (spotted two adult male brown bears) is the only plausible explanation. The urgency of the cubs' flight suggests they are fleeing from a predator. Since bears are the predators here, spotting other adult males would be a valid threat. The clip visually establishes the command and the subsequent flight, which is the standard reaction to a perceived predator threat.&lt;think&gt;&lt;answer&gt;C&lt;/answer&gt;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- Case 5 -->
+      <article class="case box" data-case>
+        <div class="columns is-variable is-4">
+          <div class="column is-5">
+            <span class="video-label">📹 Original Video</span>
+            <video controls playsinline width="100%" preload="metadata">
+              <source src="./static/videos/9Y-YJEtxHeo.mp4" type="video/mp4">
+            </video>
+
+            <div class="question-box">
+              <div class="question-box-header">
+                <strong>❓ Question</strong>
+              </div>
+              <div class="question-box-content">
+                <p>How many Japanese people would feel ashamed for taking paid leave according to the video?</p>
+                <ul class="options-list">
+                  <li>A. 4%.</li>
+                  <li>B. 36%.</li>
+                  <li class="correct">C. 63%.</li>
+                  <li>D. 42%.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="column is-7 match-height-wrapper">
+            <div class="content">
+              <div class="model-output-box">
+                <div class="model-output-header">
+                  <strong>🤔 Turn 1: Grounding</strong>
+                </div>
+                <div class="model-output-content">
+&lt;think&gt;The user wants to know the percentage of Japanese people who feel ashamed for taking paid leave. I need to find the part of the video where this statistic is presented. I'll scan the video for infographics or on-screen text that discusses employee leave culture in Japan.
+First, I recall seeing some statistics about work culture early in the video. Around the 50-second mark, there's an animation showing a bar graph comparing countries' rates of unused vacation days. Let me check that section again. Ah, yes, at approximately 51 seconds, the video shows a pie chart with the text "63% FEEL SHAMEFUL". This seems directly relevant. Therefore, the critical information is contained within this short animation.&lt;/think&gt;&lt;tool_call&gt;{"name": "get_video_clip_frame", "arguments": [{"start_time": 51, "end_time": 57}]}&lt;/tool_call&gt;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="columns is-variable is-4">
+          <div class="column is-5">
+            <span class="video-label">🎬 Clipped Video</span>
+            <video controls playsinline width="100%" preload="metadata">
+              <source src="./static/videos/9Y-YJEtxHeo_51_57.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <div class="column is-7 match-height-wrapper">
+            <div class="content">
+              <div class="model-output-box">
+                <div class="model-output-header">
+                  <strong>🤔 Turn 2: Grounding</strong>
+                </div>
+                <div class="model-output-content">
+&lt;think&gt;I have watched the clip from 51 to 57 seconds. This segment shows an animated bar graph comparing the number of vacation days offered and unused across different countries. While it does show statistics related to work culture, it doesn't specifically focus on the percentage of Japanese people who feel ashamed about taking paid leave. My initial analysis was too broad and missed the more direct visual cue. Let me refine my search. Ah, right after the bar graph, another animation begins. At around 58 seconds, a pie chart appears with a shocked emoji and the text '63%'. This is followed by a transition to a man sweating at 101 seconds. The most direct and concise piece of evidence linking the feeling of shame to a specific percentage is the pie chart itself. Therefore, focusing on the moment the pie chart is introduced will be better. The critical sequence appears to be between 58 and 100 seconds.&lt;/think&gt;&lt;tool_call&gt;{"name": "get_video_clip_frame", "arguments": [{"start_time": 58, "end_time": 100}]}&lt;/tool_call&gt;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="columns is-variable is-4">
+          <div class="column is-5">
+            <span class="video-label">🎬 Clipped Video</span>
+            <video controls playsinline width="100%" preload="metadata">
+              <source src="./static/videos/9Y-YJEtxHeo_58_100.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <div class="column is-7 match-height-wrapper">
+            <div class="content">
+              <div class="model-output-box">
+                <div class="model-output-header">
+                  <strong>🤔 Turn 3: Answer</strong>
+                </div>
+                <div class="model-output-content">
+&lt;think&gt;I have watched the clip from 58 to 100 seconds. Initially, the clip shows various scenes of empty streets and office workers in Japan, illustrating the long hours they work. However, the most direct and explicit information regarding the percentage of people feeling ashamed is contained in the animated graphics that follow. Ah, at exactly 101 seconds, an animation begins with a shocked emoji appearing next to a pie chart. The text '63%' is prominently displayed over the pie chart. This graphic remains on screen until about 106 seconds. This is the precise moment where the statistic is shown. Therefore, the percentage of Japanese people who feel ashamed for taking paid leave is 63%, which corresponds to option C.&lt;think&gt;&lt;answer&gt;C&lt;/answer&gt;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- Case 6 -->
+      <article class="case box" data-case>
+        <div class="columns is-variable is-4">
+          <div class="column is-5">
+            <span class="video-label">📹 Original Video</span>
+            <video controls playsinline width="100%" preload="metadata">
+              <source src="./static/videos/Xim8-lUZnsA.mp4" type="video/mp4">
+            </video>
+
+            <div class="question-box">
+              <div class="question-box-header">
+                <strong>❓ Question</strong>
+              </div>
+              <div class="question-box-content">
+                <p>In which skill are there only three people on the field?</p>
+                <ul class="options-list">
+                  <li>A. No.10 skill.</li>
+                  <li>B. No.7 skill.</li>
+                  <li>C. No.13 skill.</li>
+                  <li class="correct">D. No.3 skill.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="column is-7 match-height-wrapper">
+            <div class="content">
+              <div class="model-output-box">
+                <div class="model-output-header">
+                  <strong>🤔 Turn 1: Grounding</strong>
+                </div>
+                <div class="model-output-content">
+&lt;think&gt;The user wants me to identify which soccer skill involves exactly three people on the field. I need to scan the video for title cards that introduce different skills and observe the number of players in the corresponding scenes.
+First, I'll skim through the video to find the title cards. The video is structured with numbered sections for each skill. I see title cards appearing periodically.
+Let's check each option:
+- Option A: "No.10 skill." I need to find section 10.
+- Option B: "No.7 skill." I need to find section 7.
+- Option C: "No.13 skill." I need to find section 13.
+- Option D: "No.3 skill." I need to find section 3.
+Now, let me focus on finding section 3. I recall seeing a title card for "THE UNDERFOOT STOP" which is likely section 3. Let me locate that part.
+Hmm, upon closer inspection, the section titled "THE UNDERFOOT STOP" appears at approximately 142 seconds (2 minutes 22 seconds). In this specific segment, the video shows a wide shot of a soccer field where three players are clearly visible. One player in white is dribbling, while two other players in black are defending. This visual evidence directly supports the idea that this particular drill involves three people.
+Therefore, the correct answer should be related to section 3. The question asks about 'the' skill, implying one correct answer. Since the description points to section 3, the answer is linked to that specific section.&lt;/think&gt;&lt;tool_call&gt;{"name": "get_video_clip_frame", "arguments": [{"start_time": 142, "end_time": 145}]}&lt;/tool_call&gt;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="columns is-variable is-4">
+          <div class="column is-5">
+            <span class="video-label">🎬 Clipped Video</span>
+            <video controls playsinline width="100%" preload="metadata">
+              <source src="./static/videos/Xim8-lUZnsA_142_145.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <div class="column is-7 match-height-wrapper">
+            <div class="content">
+              <div class="model-output-box">
+                <div class="model-output-header">
+                  <strong>🤔 Turn 2: Grounding</strong>
+                </div>
+                <div class="model-output-content">
+&lt;think&gt;I have watched the clip from 142 to 145 seconds. This segment showed a wide shot of a soccer field where two players were present: one in white dribbling and one in black defending. My initial analysis mistakenly pinpointed two players but overlooked the specificity required to choose between the four distinct numbered options correctly. To rectify this, I must locate the precise introductory title card for one of these numbered drills, as the question asks about a specific numbered skill. To localize the search, I will evaluate the temporal proximity to the critical keyword phrase "three people". The introductory title card for section 3, "THE UNDERFOOT STOP", is visually identifiable at 91 seconds. Critically, just prior to this title card's appearance, at 90 seconds, the commentator says, "...and the third one is the underfoot stop..." This verbal cue establishes the context that the subsequent action will be linked to the 'third' numbered section. Therefore, the combination of the introductory title card itself and its contextual lead-in provides a much more accurate and sustained basis for identifying the correct numbered skill set.
+The refined localization should encompass this contextual verbal cue followed by the explicit title card itself. Thus, the entire action is contained between roughly 90 and 94 seconds.&lt;/think&gt;&lt;tool_call&gt;{"name": "get_video_clip_frame", "arguments": [{"start_time": 90, "end_time": 94}]}&lt;/tool_call&gt;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="columns is-variable is-4">
+          <div class="column is-5">
+            <span class="video-label">🎬 Clipped Video</span>
+            <video controls playsinline width="100%" preload="metadata">
+              <source src="./static/videos/Xim8-lUZnsA_90_94.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <div class="column is-7 match-height-wrapper">
+            <div class="content">
+              <div class="model-output-box">
+                <div class="model-output-header">
+                  <strong>🤔 Turn 3: Answer</strong>
+                </div>
+                <div class="model-output-content">
+&lt;think&gt;I have watched the clip from 90 to 94 seconds. At 90 seconds, the commentator verbally introduces the third skill, saying, "...and the third one is the underfoot stop...". Immediately after, at 91 seconds, the video cuts to a title card that explicitly displays the number '3' inside a stylized diamond shape, followed by the text 'THE UNDERFOOT STOP'. This title card remains on screen until about 93 seconds. Following this, at 94 seconds, the video shows a wide shot of a soccer field where three players are visible: one in white dribbling, and two defenders in black. This confirms visually that this specific section is titled 'Number 3'. Comparing this to the given options, the content unequivocally points to the 'No.3 skill'. Therefore, option D is the correct description.&lt;think&gt;&lt;answer&gt;D&lt;/answer&gt;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <!-- <pre>TBD</pre> -->
+    <pre><code>@article{liu2026videotemp,
+  title={VideoTemp-o3: Harmonizing Temporal Grounding and Video Understanding in Agentic Thinking-with-Videos},
+  author={Liu, Wenqi and Wang, Yunxiao and Ma, Shijie and Liu, Meng and Su, Qile and Zhang, Tianke and Fan, Haonan and Liu, Changyi and Jiang, Kaiyu and Chen, Jiankang and Tang, Kaiyu and Wen, Bin and Yang, Fan and Gao, Tingting and Li, Han and Wei, Yinwei and Song, Xuemeng},
+  journal={arXiv preprint arXiv:2602.07801},
+  year={2026}
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <!-- <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div> -->
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <!-- <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
