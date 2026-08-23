@@ -52,7 +52,38 @@ body {
 }
 
 .publication-title {
-    font-family: 'Google Sans', sans-serif;
+  color: #2563eb;
+  font-family: 'Google Sans', sans-serif;
+  background: linear-gradient(
+    90deg,
+    #2563eb 0%,
+    #7c3aed 25%,
+    #db2777 50%,
+    #ea580c 75%,
+    #2563eb 100%
+  );
+  background-size: 300% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: title-gradient 8s ease-in-out infinite;
+}
+
+@keyframes title-gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .publication-title {
+    animation: none;
+    background-position: 50% 50%;
+  }
 }
 
 .publication-authors {

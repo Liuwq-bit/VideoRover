@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content=""Thinking with Videos" for Long Video Understanding">
-  <meta name="keywords" content="Thinking-with-Videos, Long Video Understanding">
+        content="Thinking Beyond Videos: Unifying Video Reasoning and Deep Research for Open-World Multimodal Agents">
+  <meta name="keywords" content="video reasoning, deep research, multimodal agents">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>VideoTemp-o3</title>
+  <title>Thinking Beyond Videos</title>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
@@ -88,56 +88,68 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title"><span style="color:#FF6600;">[ICML 26]</span><br>VideoTemp-o3: Harmonizing Temporal Grounding and Video Understanding in Agentic Thinking-with-Videos</h1>
+          <h1 class="title is-1 publication-title">Thinking Beyond Videos:<br>Unifying Video Reasoning and Deep Research for Open-World Multimodal Agents</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <span>Wenqi Liu</span><sup>1,*</sup>,</span>
             <span class="author-block">
-              <span>Yunxiao Wang</span><sup>1,*</sup>,</span>
-            <span class="author-block">
-              <a href="https://mashijie1028.github.io/">Shijie Ma</a><sup>2,*</sup>,
+              <span>Shijie Ma</span><sup>2,*</sup>,
             </span>
             <span class="author-block">
-              <a href="https://mengliu1991.github.io/">Meng Liu</a><sup>1,†</sup>,
+              <span>Yunxiao Wang</span><sup>1,*</sup>,</span>
+            <span class="author-block">
+              <span>Meng Liu</span><sup>1</sup>,
             </span>
             <span class="author-block">
               <span>Qile Su</span><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <span>Han Liu</span><sup>4</sup>,
             </span><br>
             <span class="author-block">
-              <span>Tianke Zhang</span><sup>4</sup>,
+              <span>Bohan Hou</span><sup>5</sup>,
             </span>
             <span class="author-block">
-              <span>Haonan Fan</span><sup>4</sup>,
+              <span>Xuanyu Zheng</span><sup>6</sup>,
             </span>
             <span class="author-block">
-              <span>Changyi Liu</span><sup>4</sup>,
+              <span>Changyi Liu</span><sup>6</sup>,
             </span>
             <span class="author-block">
-              <span>Kaiyu Jiang</span><sup>4</sup>,
+              <span>Tianke Zhang</span><sup>6</sup>,
             </span>
             <span class="author-block">
-              <span>Jiankang Chen</span><sup>4</sup>,
-            </span>
-            <span class="author-block">
-              <span>Kaiyu Tang</span><sup>4</sup>,
+              <span>Haonan Fan</span><sup>6</sup>,
             </span><br>
             <span class="author-block">
-              <span>Bin Wen</span><sup>4,‡</sup>,
+              <span>Kaiyu Jiang</span><sup>6</sup>,
             </span>
             <span class="author-block">
-              <span>Fan Yang</span><sup>4</sup>,
+              <span>Yingxin Li</span><sup>6</sup>,
             </span>
             <span class="author-block">
-              <span>Tingting Gao</span><sup>4</sup>,
+              <span>Jiankang Chen</span><sup>6</sup>,
             </span>
             <span class="author-block">
-              <span>Han Li</span><sup>4</sup>,
+              <span>Xu Wang</span><sup>6</sup>,
             </span>
             <span class="author-block">
-              <a href="https://weiyinwei.github.io/">Yinwei Wei</a><sup>1</sup>,
+              <span>Bin Wen</span><sup>6,‡</sup>,
             </span>
             <span class="author-block">
-              <a href="hhttps://xuemengsong.github.io/">Xuemeng Song</a><sup>5,†</sup>
+              <span>Tingting Gao</span><sup>6</sup>,
+            </span><br>
+            <span class="author-block">
+              <span>Han Li</span><sup>6</sup>,
+            </span>
+            <span class="author-block">
+              <span>Jianhua Yin</span><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <span>Yinwei Wei</span><sup>1,†</sup>,
+            </span>
+            <span class="author-block">
+              <span>Xuemeng Song</span><sup>7,†</sup>
             </span>
           </div>
 
@@ -151,11 +163,11 @@
             <span class="author-block"><sup>1</sup>Shandong University,</span>
             <span class="author-block"><sup>2</sup>Institute of Automation, Chinese Academy of Sciences,</span>
             <span class="author-block"><sup>3</sup>Beihang University,</span>
-            <span class="author-block"><sup>4</sup>Kuaishou Technology,</span>
-            <span class="author-block"><sup>5</sup>Southern University of Science and Technology</span>
+            <span class="author-block"><sup>4</sup>City University of Hong Kong,</span>
+            <span class="author-block"><sup>5</sup>Nanyang Technological University,</span>
+            <span class="author-block"><sup>6</sup>Kuaishou Technology,</span>
+            <span class="author-block"><sup>7</sup>Southern University of Science and Technology</span>
           </div>
-
-
 
           <div class="column has-text-centered">
             <div class="publication-links">
@@ -190,7 +202,7 @@
               </span> -->
               <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://github.com/Kwai-Keye/VideoTemp-o3"
+                <a href="https://github.com/Liuwq-bit/VideoRover"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
@@ -201,31 +213,34 @@
               </span>
               <!-- Model Link. -->
               <span class="link-block">
-                <a href="https://huggingface.co/Kwai-Keye/VideoTemp-o3"
+                <a href="https://huggingface.co/"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-hugging-face">🤗</i>
                   </span>
-                  <span>VideoTemp-o3</span>
-                  </a>
+                  <span>VideoRover</span>
+                </a>
+              </span>
               <!-- Dataset Link. -->
               <span class="link-block">
-                <a href="https://huggingface.co/datasets/Kwai-Keye/VideoTemp-o3"
+                <a href="https://huggingface.co/datasets/"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-database"></i>
                   </span>
                   <span>Training Data</span>
-                  </a>
+                </a>
+              </span>
               <!-- Benchmark Link. -->
               <span class="link-block">
-                <a href="https://huggingface.co/datasets/Kwai-Keye/VideoTemp-Bench"
+                <a href="https://huggingface.co/datasets/"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-chart-bar"></i>
                   </span>
-                  <span>VideoTemp-Bench</span>
-                  </a>
+                  <span>VideoRover-Bench</span>
+                </a>
+              </span>
             </div>
 
           </div>
@@ -235,6 +250,17 @@
   </div>
 </section>
 
+<section class="section release-note">
+  <div class="container is-max-desktop">
+    <div class="notification has-text-centered">
+      <p class="title is-4">Coming Soon</p>
+      <p class="subtitle is-5">More experimental analyses, training code, data, and benchmarks will be released soon.</p>
+    </div>
+  </div>
+</section>
+
+<!-- The project details below are temporarily disabled. -->
+<template id="disabled-project-details">
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
@@ -843,20 +869,23 @@ The refined localization should encompass this contextual verbal cue followed by
 
 
 
+<!-- End of temporarily disabled project details. -->
+</template>
+
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
     <!-- <pre>TBD</pre> -->
-    <pre><code>@article{liu2026videotemp,
-  title={VideoTemp-o3: Harmonizing Temporal Grounding and Video Understanding in Agentic Thinking-with-Videos},
-  author={Liu, Wenqi and Wang, Yunxiao and Ma, Shijie and Liu, Meng and Su, Qile and Zhang, Tianke and Fan, Haonan and Liu, Changyi and Jiang, Kaiyu and Chen, Jiankang and Tang, Kaiyu and Wen, Bin and Yang, Fan and Gao, Tingting and Li, Han and Wei, Yinwei and Song, Xuemeng},
-  journal={arXiv preprint arXiv:2602.07801},
+    <pre><code>@article{liu2026thinking,
+  title={Thinking Beyond Videos: Unifying Video Reasoning and Deep Research for Open-World Multimodal Agents},
+  author={Liu, Wenqi and Ma, Shijie and Wang, Yunxiao and Liu, Meng and Su, Qile and Liu, Han and Hou, Bohan and Zheng, Xuanyu and Liu, Changyi and Zhang, Tianke and Fan, Haonan and Jiang, Kaiyu and Li, Yingxin and Chen, Jiankang and Wang, Xu and Wen, Bin and Gao, Tingting and Li, Han and Song, Xuemeng and Wei, Yinwei},
   year={2026}
 }</code></pre>
   </div>
 </section>
 
-
+<!-- The footer is temporarily disabled. -->
+<template id="disabled-footer">
 <footer class="footer">
   <div class="container">
     <!-- <div class="content has-text-centered">
@@ -888,6 +917,7 @@ The refined localization should encompass this contextual verbal cue followed by
     </div>
   </div>
 </footer>
+</template>
 
 </body>
 </html>
