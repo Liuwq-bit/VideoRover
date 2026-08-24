@@ -259,6 +259,67 @@
   </div>
 </section>
 
+<section class="section case-demo-section" id="case-demo">
+  <div class="container is-widescreen">
+    <div class="case-demo-heading has-text-centered">
+      <h2 class="title is-4">Interactive Case Study</h2>
+    </div>
+
+    <div class="case-demo-carousel">
+      <button class="case-demo-nav case-demo-nav-prev" id="case-demo-prev" type="button" aria-label="Show previous case">
+        <i class="fas fa-chevron-left" aria-hidden="true"></i>
+      </button>
+
+    <div class="case-demo-stage" id="case-demo-stage">
+      <div class="case-demo-input">
+        <div class="case-demo-video-shell">
+          <video id="case-demo-video" controls playsinline preload="metadata"
+                 poster="./static/frames/13_0b5414936196/frame_0000_t0.000s.png">
+            <source src="./static/videos/ESTOQ47hvdg.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <span class="case-demo-duration" id="case-demo-duration">01:47</span>
+        </div>
+
+        <div class="case-demo-question">
+          <div class="case-demo-question-label">
+            <span class="case-demo-question-icon">Q</span>
+            Question
+          </div>
+          <p id="case-demo-question">The player in this video mentions scoring in the 2006 and 2010 World Cups. What is the year of the third World Cup in which he scored a goal?</p>
+        </div>
+
+        <div class="case-demo-actions">
+          <button class="button case-demo-start" id="case-demo-start" type="button">
+            <span>Start</span>
+            <span class="icon" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="case-demo-reasoning" id="case-demo-reasoning" aria-live="polite" aria-label="Agent reasoning trace">
+        <div class="case-demo-reasoning-header">
+          <div>
+            <span class="case-demo-live-dot"></span>
+            <strong>Agent trajectory</strong>
+          </div>
+          <span class="case-demo-status" id="case-demo-status">Ready</span>
+        </div>
+        <div class="case-demo-timeline" id="case-demo-timeline"></div>
+      </div>
+    </div>
+
+      <button class="case-demo-nav case-demo-nav-next" id="case-demo-next" type="button" aria-label="Show next case">
+        <i class="fas fa-chevron-right" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <div class="case-demo-pagination has-text-centered" aria-live="polite">
+      <span id="case-demo-current">1</span> / <span id="case-demo-total">2</span>
+    </div>
+  </div>
+</section>
+
 <!-- The project details below are temporarily disabled. -->
 <template id="disabled-project-details">
 <section class="hero teaser">
