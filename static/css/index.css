@@ -766,13 +766,10 @@ body {
 }
 
 .case-demo-question-icon {
-  display: inline-grid;
-  place-items: center;
+  display: block;
   width: 1.5rem;
   height: 1.5rem;
-  color: #fff;
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
-  border-radius: 6px;
+  flex: 0 0 1.5rem;
 }
 
 .case-demo-question p {

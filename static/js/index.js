@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function () {
     },
     {
       kind: 'results',
-      label: 'visit result · Wikipedia',
+      label: 'visit result',
       text: 'The page confirms that Rafael Márquez scored in the 2002, 2006, 2010, 2014, and 2018 World Cups. His third World Cup goal was in 2014.',
       results: [
         'Evidence: Márquez scored in the 2002, 2006, 2010, 2014, and 2018 World Cups.',
@@ -434,7 +434,7 @@ document.addEventListener('DOMContentLoaded', function () {
     },
     {
       kind: 'results',
-      label: 'visit result · CoinAntix',
+      label: 'visit result',
       text: 'The page states that the coin was struck by Cn. Calpurnius Piso and that the gens Calpurnia traditionally descended from Calpus, son of Numa Pompilius.',
       results: [
         'Evidence: “Pompilius had a son by the name of Calpus, from whom the gens Calpurnia was descended.”',
