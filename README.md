@@ -1,4 +1,4 @@
-# Thinking Beyond Videos: Unifying Video Reasoning and Deep Research for Open-World Multimodal Agents
+# Thinking Beyond Videos: Unifying Video Reasoning and Deep Research for Open-World Video Agents
 
 <div align="center" style="font-size: 15pt">
 
