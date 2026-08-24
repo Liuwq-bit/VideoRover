@@ -479,7 +479,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function createStep(step, index) {
     var item = document.createElement('article');
-    item.className = 'case-demo-step case-demo-' + step.kind;
+    item.className = 'case-demo-step case-demo-' + step.kind + (step.raw ? ' is-raw' : '') + (step.framesFirst ? ' frames-first' : '');
 
     var card = document.createElement('div');
     card.className = 'case-demo-step-card';
@@ -499,7 +499,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var text = document.createElement('p');
     text.className = 'case-demo-step-text';
     text.textContent = step.text;
-    card.appendChild(text);
+    if (!step.framesFirst) card.appendChild(text);
 
     if (step.frames) {
       var frameGrid = document.createElement('div');
@@ -518,6 +518,7 @@ document.addEventListener('DOMContentLoaded', function () {
         frameGrid.appendChild(figure);
       });
       card.appendChild(frameGrid);
+      if (step.framesFirst) card.appendChild(text);
     }
 
     if (step.results) {
@@ -618,6 +619,67 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 200);
   }
 
+  function parseTrajectoryRecords(rawText) {
+    var trimmed = rawText.trim().replace(/,\s*$/, '');
+    return JSON.parse(trimmed.charAt(0) === '[' ? trimmed : '[' + trimmed + ']');
+  }
+
+  function applyRawTrajectory(record, steps) {
+    var assistantMessages = record.trajectory.filter(function (message) {
+      return message.role === 'assistant';
+    });
+    var toolResultMessages = record.trajectory.filter(function (message, index) {
+      return message.role === 'user' && index > 1;
+    });
+    var modelSteps = steps.filter(function (step) {
+      return step.kind === 'model';
+    });
+    var toolResultSteps = steps.filter(function (step) {
+      return step.kind === 'evidence' || step.kind === 'results';
+    });
+
+    if (assistantMessages.length !== modelSteps.length || toolResultMessages.length !== toolResultSteps.length) {
+      throw new Error('Trajectory message count does not match the rendered case steps.');
+    }
+
+    modelSteps.forEach(function (step, index) {
+      step.text = assistantMessages[index].content;
+      step.raw = true;
+    });
+    toolResultSteps.forEach(function (step, index) {
+      var rawContent = toolResultMessages[index].content;
+      var startsWithImage = /^\s*<image>/.test(rawContent);
+      step.text = rawContent
+        .replace(/<image>/g, '')
+        .replace(/\n{3,}/g, '\n\n')
+        .trim();
+      step.framesFirst = Boolean(startsWithImage && step.frames && step.frames.length);
+      step.raw = true;
+      delete step.results;
+    });
+  }
+
+  function loadRawTrajectories() {
+    return fetch('./static/data/case.json', { cache: 'no-store' })
+      .then(function (response) {
+        if (!response.ok) throw new Error('Unable to load case.json: HTTP ' + response.status);
+        return response.text();
+      })
+      .then(function (rawText) {
+        var records = parseTrajectoryRecords(rawText);
+        var footballCase = records.find(function (record) {
+          return String(record.video_url || record.youtube_url || '').indexOf('ESTOQ47hvdg') !== -1;
+        });
+        var coinCase = records.find(function (record) {
+          return String(record.video_url || record.youtube_url || '').indexOf('3yIk16Bg64A') !== -1;
+        });
+
+        if (!footballCase || !coinCase) throw new Error('Required case records were not found in case.json.');
+        applyRawTrajectory(footballCase, firstCaseSteps);
+        applyRawTrajectory(coinCase, secondCaseSteps);
+      });
+  }
+
   function startPlayback() {
     if (running) return;
     clearPlayback();
@@ -657,5 +719,18 @@ document.addEventListener('DOMContentLoaded', function () {
     switchCase(1);
   });
 
-  showCase(0);
+  setButton('Loading', 'fas fa-circle-notch fa-spin', true);
+  status.textContent = 'Loading';
+  previousButton.disabled = true;
+  nextButton.disabled = true;
+  loadRawTrajectories()
+    .catch(function (error) {
+      console.error(error);
+      status.textContent = 'Fallback';
+    })
+    .finally(function () {
+      showCase(0);
+      previousButton.disabled = false;
+      nextButton.disabled = false;
+    });
 });

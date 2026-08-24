@@ -970,6 +970,11 @@ body {
   overflow-wrap: anywhere;
 }
 
+.case-demo-step.is-raw .case-demo-step-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
 .case-demo-overview .case-demo-step-card {
   background: linear-gradient(145deg, #f8fafc, #f5f3ff);
   border-color: #c4b5fd;
@@ -1026,6 +1031,11 @@ body {
 
 .case-demo-frame-grid.is-single {
   grid-template-columns: minmax(0, 420px);
+}
+
+.case-demo-step.frames-first .case-demo-frame-grid {
+  margin-top: 0;
+  margin-bottom: 0.72rem;
 }
 
 .case-demo-result-list {
