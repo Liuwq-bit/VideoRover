@@ -3,7 +3,7 @@
 <div align="center" style="font-size: 15pt">
 
 <a href='https://liuwq-bit.github.io/VideoRover'><img src='https://img.shields.io/badge/Project-Page-green'></a>
-<a href='https://arxiv.org/abs/2602.07801'><img src='https://img.shields.io/badge/Arxiv-2602.07801-red'></a>
+<a href='https://arxiv.org/abs/2608.23329'><img src='https://img.shields.io/badge/Arxiv-2608.23329-red'></a>
 <a href='https://github.com/Liuwq-bit/VideoRover'><img src='https://img.shields.io/badge/Code-Github-blue?logo=github'></a>
 <br>
 <a href='https://huggingface.co/'><img src='https://img.shields.io/badge/Model-VideoRover-orange'></a>
@@ -17,4 +17,4 @@ More experimental analyses, training code, data, and benchmarks will be released
 
 ## Updates
 
-- [2026/08/23] We released our arXiv paper.
+- [2026/08/25] We released our [paper](https://arxiv.org/abs/2608.23329) and [project page](https://liuwq-bit.github.io/VideoRover).
