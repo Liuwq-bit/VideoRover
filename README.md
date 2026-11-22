@@ -15,7 +15,8 @@
 
 ## Updates
 
-- [2026/11/22] We released the [training data](https://huggingface.co/datasets/Kling-Keye-Official/VideoRover) and [VideoRover-Bench](https://huggingface.co/datasets/Kling-Keye-Official/VideoRover-Bench).
+- [2026/11/22] We updated our [project page](https://liuwq-bit.github.io/VideoRover).
+- [2026/11/21] We released the [training data](https://huggingface.co/datasets/Kling-Keye-Official/VideoRover) and [VideoRover-Bench](https://huggingface.co/datasets/Kling-Keye-Official/VideoRover-Bench).
 - [2026/08/25] We released our [paper](https://arxiv.org/abs/2608.23329) and [project page](https://liuwq-bit.github.io/VideoRover).
 
 ## TODO
