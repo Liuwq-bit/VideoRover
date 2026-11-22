@@ -7,14 +7,21 @@
 <a href='https://github.com/Liuwq-bit/VideoRover'><img src='https://img.shields.io/badge/Code-Github-blue?logo=github'></a>
 <br>
 <a href='https://huggingface.co/'><img src='https://img.shields.io/badge/Model-VideoRover-orange'></a>
-<a href='https://huggingface.co/datasets/'><img src='https://img.shields.io/badge/Dataset-SFT & RL-yellow'></a>
-<a href='https://huggingface.co/datasets/'><img src='https://img.shields.io/badge/Benchmark-VideoRover Bench-blue'></a>
+<a href='https://huggingface.co/datasets/Kling-Keye-Official/VideoRover'><img src='https://img.shields.io/badge/Dataset-SFT & RL-yellow'></a>
+<a href='https://huggingface.co/datasets/Kling-Keye-Official/VideoRover-Bench'><img src='https://img.shields.io/badge/Benchmark-VideoRover Bench-blue'></a>
 
 </div>
 
 
-More experimental analyses, training code, data, and benchmarks will be released soon.
-
 ## Updates
 
+- [2026/11/22] We released the [training data](https://huggingface.co/datasets/Kling-Keye-Official/VideoRover) and [VideoRover-Bench](https://huggingface.co/datasets/Kling-Keye-Official/VideoRover-Bench).
 - [2026/08/25] We released our [paper](https://arxiv.org/abs/2608.23329) and [project page](https://liuwq-bit.github.io/VideoRover).
+
+## TODO
+
+- [x] Release training data
+- [x] Release VideoRover-Bench
+- [ ] Release training code
+- [ ] Release evaluation code
+- [ ] Release model weights
