@@ -1,0 +1,115 @@
+{
+    "benchmark_id": "videodr_human_v11r_0099",
+    "source_id": 3149,
+    "duration": 598.3666666666667,
+    "duration_minutes": 9.9728,
+    "length": "short",
+    "length_level": "short",
+    "difficulty": "medium",
+    "topic": "Education",
+    "subtopic": "National curriculum mandatory subjects",
+    "wiki_url": "https://en.wikipedia.org/wiki/Education_in_Bangladesh",
+    "youtube_url": "https://www.youtube.com/watch?v=LigaN_DGhl8",
+    "evidence_url": "https://file-chittagong.portal.gov.bd/files/www.lakshmipur.gov.bd/files/f97d6b95_2046_11e7_8f57_286ed488c766/National%20Education%20Policy-English%20corrected%20_2_.pdf",
+    "evidence_urls": [
+        "https://file-chittagong.portal.gov.bd/files/www.lakshmipur.gov.bd/files/f97d6b95_2046_11e7_8f57_286ed488c766/National%20Education%20Policy-English%20corrected%20_2_.pdf",
+        "https://en.wikipedia.org/wiki/Education_in_Bangladesh"
+    ],
+    "timestamps": [
+        [
+            1,
+            4
+        ],
+        [
+            334,
+            338
+        ]
+    ],
+    "id": 99,
+    "category": "Education",
+    "video_url": "https://www.youtube.com/watch?v=LigaN_DGhl8",
+    "question": "The video features text overlays written in a South Asian language. In the country where this language is the national language, what two subjects are mandatory for all students following the national curriculum, regardless of their chosen medium of instruction?",
+    "ground_truth": "Bengali and English",
+    "answer": "Bengali and English",
+    "model_answer": "Bengali and English",
+    "video_path": "/mmu_mllm_hdd/liuwenqi/dataset/rag/videos/LigaN_DGhl8.mp4",
+    "frame_paths": [
+        [
+            "/mmu_mllm_hdd/liuwenqi/dataset/rag/eval/wiki_v11_outputs/videorover-8b/rl_180_norepeat_1_64/frames/99_96c410c681ff/frame_0000_t156.000s.png",
+            "/mmu_mllm_hdd/liuwenqi/dataset/rag/eval/wiki_v11_outputs/videorover-8b/rl_180_norepeat_1_64/frames/99_96c410c681ff/frame_0001_t156.545s.png",
+            "/mmu_mllm_hdd/liuwenqi/dataset/rag/eval/wiki_v11_outputs/videorover-8b/rl_180_norepeat_1_64/frames/99_96c410c681ff/frame_0002_t157.091s.png",
+            "/mmu_mllm_hdd/liuwenqi/dataset/rag/eval/wiki_v11_outputs/videorover-8b/rl_180_norepeat_1_64/frames/99_96c410c681ff/frame_0003_t157.636s.png",
+            "/mmu_mllm_hdd/liuwenqi/dataset/rag/eval/wiki_v11_outputs/videorover-8b/rl_180_norepeat_1_64/frames/99_96c410c681ff/frame_0004_t158.182s.png",
+            "/mmu_mllm_hdd/liuwenqi/dataset/rag/eval/wiki_v11_outputs/videorover-8b/rl_180_norepeat_1_64/frames/99_96c410c681ff/frame_0005_t158.727s.png",
+            "/mmu_mllm_hdd/liuwenqi/dataset/rag/eval/wiki_v11_outputs/videorover-8b/rl_180_norepeat_1_64/frames/99_96c410c681ff/frame_0006_t159.273s.png",
+            "/mmu_mllm_hdd/liuwenqi/dataset/rag/eval/wiki_v11_outputs/videorover-8b/rl_180_norepeat_1_64/frames/99_96c410c681ff/frame_0007_t159.818s.png",
+            "/mmu_mllm_hdd/liuwenqi/dataset/rag/eval/wiki_v11_outputs/videorover-8b/rl_180_norepeat_1_64/frames/99_96c410c681ff/frame_0008_t160.364s.png",
+            "/mmu_mllm_hdd/liuwenqi/dataset/rag/eval/wiki_v11_outputs/videorover-8b/rl_180_norepeat_1_64/frames/99_96c410c681ff/frame_0009_t160.909s.png",
+            "/mmu_mllm_hdd/liuwenqi/dataset/rag/eval/wiki_v11_outputs/videorover-8b/rl_180_norepeat_1_64/frames/99_96c410c681ff/frame_0010_t161.455s.png",
+            "/mmu_mllm_hdd/liuwenqi/dataset/rag/eval/wiki_v11_outputs/videorover-8b/rl_180_norepeat_1_64/frames/99_96c410c681ff/frame_0011_t162.000s.png"
+        ],
+        "/mmu_mllm_hdd/liuwenqi/dataset/rag/eval/wiki_v11_outputs/videorover-8b/rl_180_norepeat_1_64/frames/99_96c410c681ff/image_search_t157.300s.png"
+    ],
+    "trajectory": [
+        {
+            "role": "system",
+            "content": ""
+        },
+        {
+            "role": "user",
+            "content": "<video>\nThe video features text overlays written in a South Asian language. In the country where this language is the national language, what two subjects are mandatory for all students following the national curriculum, regardless of their chosen medium of instruction?"
+        },
+        {
+            "role": "assistant",
+            "content": "<think>The video features text overlays in what appears to be Bengali script, based on the visual text at 156s reading 'অস্ট্রেলিয়ান অ্যাওয়ার্ড স্কলারশীপ'. To confirm the language, I will crop the 156-162s segment to examine the text more closely and verify that it is indeed Bengali. Once confirmed, I will determine the country where Bengali is the national language, which is Bangladesh. Then, I will identify the two subjects that are mandatory for all students under the national curriculum in Bangladesh, regardless of the medium of instruction. The video provides visual evidence of the language, but the curriculum details are external knowledge that must be verified based on the confirmed language and country.</think>\n<tool_call>{\"name\": \"crop_video\", \"arguments\": {\"start_time\": 156.0, \"end_time\": 162.0}}</tool_call>"
+        },
+        {
+            "role": "user",
+            "content": "crop_video tool execution successful: Extracted 12 frames from 156.0s to 162.0s.\n<image><image><image><image><image><image><image><image><image><image><image><image>"
+        },
+        {
+            "role": "assistant",
+            "content": "<think>The video displays text in Bengali script, as seen in the 156-162s crop with OCR results showing 'বীমা যাতায়াত ভাতা' and 'সোপ্টিয়র (খাক ডিসেম্বরের মধ্যে)'. The script is identified as Bengali. However, Bengali is not the sole national language of a single country; it is co-national with Bangla in Bangladesh and official in India. The question asks about the country where this language is the national language, implying a single national official language. This points to Bangladesh, where Bengali (Bangla) is the national language. To confirm the language's identity and ensure accuracy, I will use image_search on a frame from the 157s timestamp showing the Bengali text. Once the language is confirmed, I will proceed to identify the two mandatory subjects in the national curriculum regardless of the medium of instruction.</think>\n<tool_call>{\"name\": \"image_search\", \"arguments\": {\"timestamp\": 157.3}}</tool_call>"
+        },
+        {
+            "role": "user",
+            "content": "<image>\nimage_search tool execution successful:\n[1] The useful information in https://moulvibazarcity.wordpress.com/about/phones-mobiles-shop/ for user goal The video features text overlays written in a South Asian language. In the country where this language is the national language, what two subjects are mandatory for all students following the national curriculum, regardless of their chosen medium of instruction? as follows:\n\nEvidence in page:\nThe webpage is in Bengali, the national language of Bangladesh. In Bangladesh, Bengali and English are mandatory subjects in the national curriculum.\n\nSummary:\nIn Bangladesh, where Bengali is the national language, Bengali and English are mandatory subjects for all students in the national curriculum.\n\n\n\n=======\n\n[2] The useful information in https://kukufm.com/show/নিশুতি-হোটেলে-নটবর-বাবু for user goal The video features text overlays written in a South Asian language. In the country where this language is the national language, what two subjects are mandatory for all students following the national curriculum, regardless of their chosen medium of instruction? as follows:\n\nEvidence in page:\nThe webpage is in Bengali, indicating it's from Bangladesh. In Bangladesh, Bengali and Islamic Studies (or Ethics) are mandatory subjects in the national curriculum for all students.\n\nSummary:\nIn Bangladesh, where Bengali is the national language, the two mandatory subjects for all students are Bengali and Islamic Studies (or Ethics).\n\n\n\n=======\n\n[3] The useful information in https://www.facebook.com/media/set/?set=a.1045414308876405.1073741841.351700074914502&type=3 for user goal The video features text overlays written in a South Asian language. In the country where this language is the national language, what two subjects are mandatory for all students following the national curriculum, regardless of their chosen medium of instruction? as follows:\n\nEvidence in page:\nThe text 'Sanskritik Protijogitar Puroskar Bitoroni Onusthan (2016)' is in Bengali, the national language of Bangladesh. In Bangladesh, Bengali and English are mandatory subjects in the national curriculum.\n\nSummary:\nIn Bangladesh, where Bengali is the national language, Bengali and English are mandatory subjects for all students in the national curriculum.\n\n"
+        },
+        {
+            "role": "assistant",
+            "content": "<think>Image search results from three pages contain conflicting claims about the two mandatory subjects in Bangladesh's national curriculum: two say Bengali and English, one says Bengali and Islamic Studies/Ethics. To resolve this, I need to verify the official curriculum. I will visit a reliable source that can clarify the mandatory subjects regardless of medium of instruction.</think>\n<tool_call>{\"name\": \"visit\", \"arguments\": {\"url\": [\"https://www.dhakatribune.com/education/news/bangladesh-school-and-college-examinations-board-releases-primary-and-secondary-school-curriculum-2024\"], \"goal\": \"Find the two mandatory subjects for all students in the national curriculum in Bangladesh, regardless of medium of instruction\"}}</tool_call>"
+        },
+        {
+            "role": "user",
+            "content": "visit tool execution successful:\n[1] The useful information in https://www.dhakatribune.com/education/news/bangladesh-school-and-college-examinations-board-releases-primary-and-secondary-school-curriculum-2024 for user goal Find the two mandatory subjects for all students in the national curriculum in Bangladesh, regardless of medium of instruction as follows:\n\nEvidence in page:\nThe page is a security verification page and does not contain curriculum information.\n\nSummary:\nThe webpage does not provide information on mandatory subjects in Bangladesh's national curriculum.\n\n"
+        },
+        {
+            "role": "assistant",
+            "content": "<think>The image search returned conflicting claims about mandatory subjects in Bangladesh (English vs Islamic Studies). The visit to Dhaka Tribune was blocked. I need a reliable source on the national curriculum. I will search specifically for 'Bangladesh national curriculum mandatory subjects for all mediums Bengali English' to get a clear answer.</think>\n<tool_call>{\"name\": \"text_search\", \"arguments\": {\"query\": \"Bangladesh National Curriculum Bangladesh BCS mandatory subjects for all students medium Bengali English Islamic studies\"}}</tool_call>"
+        },
+        {
+            "role": "user",
+            "content": "text_search tool execution successful:\nSearch for 'Bangladesh National Curriculum Bangladesh BCS mandatory subjects for all students medium Bengali English Islamic studies' returned 9 results:\n\n1. [The government plans to introduce a foreign language as ...](https://www.facebook.com/CentristNationTV/posts/the-government-plans-to-introduce-a-foreign-language-as-a-mandatory-third-langua/950742814146088/)\n   Date published: 6 months ago\n   Bobby Hajjaj has said the government plans to introduce a foreign language as a mandatory third language alongside Bangla and English in the ...\n\n2. [NCTB-SchoolText: A Curriculum-Aligned Bangla/English ...](https://data.mendeley.com/datasets/f3882ccczp)\n   Date published: Jun 16, 2026\n   The corpus is bilingual (Bangla and English) and additionally contains Arabic-script content in the Arabic and Islamic-studies books, with ...\n\n3. [Faith and education in Bangladesh: A review of the ...](https://www.sciencedirect.com/science/article/pii/S0738059320304491)\n   by S Roy · 2020 · Cited by 180 — Students from the four major religions (Islam, Hinduism, Buddhism, and Christianity) are taught religion as a compulsory subject separately through standardized ...\n\n4. [Education in Bangladesh](https://en.wikipedia.org/wiki/Education_in_Bangladesh)\n   Islamic studies are taught in Arabic, Bengali, and sometimes even in English.\n\n5. [Towards an Integrated Islamic Curriculum for ...](https://www.banglajol.info/index.php/IIUCS/article/view/24012/16400)\n   by AB Rafique · 2012 · Cited by 2 — compulsory subjects and English and Mathematics. Arabic Literature: English: As optional subject English is included. Islamic History: Taught as compulsory. ...\n\n6. [Improving the Efficacy of English Instruction at Qawmi ...](https://journals.sagepub.com/doi/10.1177/2158244020924049)\n   by AM Golam · 2020 · Cited by 23 — The modernization scheme of 1980 gradually introduced secular subjects, such as English, Bangla, science, and mathematics, alongside topics related to religion ...\n\n7. [Improving the Efficacy of English Instruction at Qawmi ...](https://www.researchgate.net/publication/341519982_Improving_the_Efficacy_of_English_Instruction_at_Qawmi_Madrasas_Islamic_Seminaries_in_Bangladesh)\n   This study examined English teaching and learning. This research focuses on the teaching of secular subjects at religious schools in two regions in Bangladesh. ...\n\n8. [National Curriculum Framework 2021 Overview | PDF](https://www.scribd.com/document/650816477/nctb)\n   The document outlines the background and process for developing the National Curriculum Framework 2021 in Bangladesh. It discusses how the world is rapidly ...\n\n9. [Recognizing Qaumi Madrasas in Bangladesh](https://www.ipcs.org/comm_select.php?articleNo=2114)\n   Date published: Sep 16, 2006\n   In August 2006, the Bangladeshi government decided to recognize 'Dawra degree' of the Qaumi madrasas as equivalent to Masters Degree in ..."
+        },
+        {
+            "role": "assistant",
+            "content": "<think>The text_search results include a Wikipedia article on Education in Bangladesh that likely lists the mandatory subjects. I will visit that to get a definitive answer on the two mandatory subjects for all students regardless of medium.</think>\n<tool_call>{\"name\": \"visit\", \"arguments\": {\"url\": [\"https://en.wikipedia.org/wiki/Education_in_Bangladesh\"], \"goal\": \"Find the two mandatory subjects in the national curriculum for all students in Bangladesh, regardless of medium of instruction.\"}}</tool_call>"
+        },
+        {
+            "role": "user",
+            "content": "visit tool execution successful:\n[1] The useful information in https://en.wikipedia.org/wiki/Education_in_Bangladesh for user goal Find the two mandatory subjects in the national curriculum for all students in Bangladesh, regardless of medium of instruction. as follows:\n\nEvidence in page:\nBengali and English are mandatory subjects for all students following the national curriculum irrespective of their chosen medium of instruction.\n\nSummary:\nBengali and English\n\n"
+        },
+        {
+            "role": "assistant",
+            "content": "<think>The Wikipedia article on Education in Bangladesh explicitly states that Bengali and English are mandatory subjects for all students regardless of medium of instruction. This confirms the answer.</think>\n<answer>Bengali and English</answer>"
+        }
+    ],
+    "evidence": "accept",
+    "remarks": "Human-confirmed candidate. Difficulty is recalibrated with completed v10 results and structural metrics. Formal v11 accuracy requires a fresh run; 19 edited questions do not have exact v10 outcomes.",
+    "tool_calls": 5,
+    "repeated_tool_requests": 0,
+    "max_consecutive_same_tool_requests": 1,
+    "error": "",
+    "endpoint": "http://127.0.0.1:8003/v1",
+    "timestamp": "2026-09-12 15:45:23"
+}

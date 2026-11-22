@@ -31,7 +31,7 @@
   <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/index.css?v=20260928-10">
   <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -259,12 +259,258 @@
   </div>
 </section>
 
-<section class="section release-note">
-  <div class="container is-max-desktop">
-    <div class="notification has-text-centered">
-      <p class="title is-4">Coming Soon</p>
-      <p class="subtitle is-5">More experimental analyses, training code, data, and benchmarks will be released soon.</p>
-    </div>
+<section class="section paper-highlights" id="method">
+  <div class="container is-widescreen">
+    <article class="paper-highlight">
+      <div class="paper-highlight-copy has-text-centered">
+        <h2 class="title is-4">Thinking Beyond Videos</h2>
+        <p>
+          Open-world video understanding often requires locating sparse visual evidence in a video
+          and acquiring knowledge that is contained neither in the video itself nor in the model's
+          parameters. Thinking-with-Videos actively localizes such evidence, and Deep Research
+          acquires such knowledge over multiple search steps, but the two directions are developed
+          in isolation. To bridge this gap, we introduce VideoRover, a unified Video Deep Research
+          framework that iteratively coordinates video cropping, multimodal search, and webpage
+          browsing. Given a video–question pair, VideoRover conditions each action on the observations
+          accumulated so far, so that localized clips anchor external search, while retrieved evidence
+          triggers further video inspection and verification.
+        </p>
+      </div>
+      <figure class="paper-figure paper-figure-featured">
+        <a href="./static/images/paper/videorover-overview.png" target="_blank" rel="noopener">
+          <img src="./static/images/paper/videorover-overview.png"
+               alt="VideoRover unifies temporal video grounding with open-world deep research"
+               loading="lazy" decoding="async">
+        </a>
+        <figcaption>
+          Illustration of how VideoRover unifies Thinking-with-Videos and Deep Research for open-world
+          video questions. While the first two separately localize video evidence or retrieve external
+          knowledge, VideoRover maintains a shared research state to adaptively coordinate video cropping,
+          text and image search, and webpage browsing toward the final answer.
+        </figcaption>
+      </figure>
+    </article>
+
+    <article class="paper-highlight">
+      <div class="paper-highlight-copy has-text-centered">
+        <h2 class="title is-4">Data Synthesis</h2>
+        <p>
+          High-quality data is essential for developing Video Deep Research capabilities. Unlike
+          conventional video question answering, Video Deep Research requires not only reasoning over
+          video content, but also acquiring external information beyond the model's parametric knowledge
+          and connecting video evidence with web evidence through multi-step interactions. To support
+          this setting, we develop a data pipeline covering Video Deep Research question construction,
+          SFT trajectory synthesis, and hard-example selection for RL.
+        </p>
+      </div>
+      <div class="paper-pipeline-grid">
+        <figure class="paper-figure">
+          <a href="./static/images/paper/question-construction.png" target="_blank" rel="noopener">
+            <img src="./static/images/paper/question-construction.png"
+                 alt="Pipeline for constructing video-grounded and knowledge-dependent questions"
+                 loading="lazy" decoding="async">
+          </a>
+          <figcaption class="paper-caption-short"><strong>Question construction.</strong></figcaption>
+        </figure>
+        <figure class="paper-figure">
+          <a href="./static/images/paper/trajectory-construction.png" target="_blank" rel="noopener">
+            <img src="./static/images/paper/trajectory-construction.png"
+                 alt="Pipeline for synthesizing and verifying multi-round research trajectories"
+                 loading="lazy" decoding="async">
+          </a>
+          <figcaption class="paper-caption-short"><strong>Trajectory construction.</strong></figcaption>
+        </figure>
+      </div>
+      <p class="paper-combined-caption">
+        Pipelines for constructing Video Deep Research questions and tool-use trajectories.
+      </p>
+    </article>
+
+    <article class="paper-highlight">
+      <div class="paper-highlight-copy has-text-centered">
+        <h2 class="title is-4">Benchmark Construction</h2>
+        <p>
+          We construct VideoRover-Bench to evaluate Video Deep Research across temporal scales and
+          research complexities. Starting from the candidate video-question pool, we use Gemini-2.5-Pro,
+          which is independent of the data-generation models, to check question clarity and localize the
+          relevant video segment. The localized segment is then paired with the question for a subsequent
+          verification pass that determines whether it contains the key visual information needed by the
+          question. Samples without such evidence are discarded. The remaining samples undergo human
+          review of question and answer correctness and joint dependence on video evidence and external
+          knowledge. Finally, verified samples are stratified by video length and task difficulty before
+          balanced sampling. Balanced sampling retains 50 examples for each of the 6 length-difficulty
+          combinations, yielding 300 evaluation instances in total.
+        </p>
+      </div>
+      <div class="paper-pipeline-grid">
+        <figure class="paper-figure paper-figure-benchmark">
+          <a href="./static/images/paper/bench-construction-verification.png" target="_blank" rel="noopener">
+            <img src="./static/images/paper/bench-construction-verification.png"
+                 alt="Automated grounding and evidence verification for VideoRover-Bench"
+                 loading="lazy" decoding="async">
+          </a>
+          <figcaption class="paper-caption-short">
+            <strong>Automated grounding and evidence verification.</strong>
+          </figcaption>
+        </figure>
+        <figure class="paper-figure paper-figure-benchmark">
+          <a href="./static/images/paper/bench-construction-stratification.png?v=4" target="_blank" rel="noopener">
+            <img src="./static/images/paper/bench-construction-stratification.png?v=4"
+                 alt="Human review, stratification, and balanced sampling for VideoRover-Bench"
+                 loading="lazy" decoding="async">
+          </a>
+          <figcaption class="paper-caption-short">
+            <strong>Human review, stratification, and balanced sampling.</strong>
+          </figcaption>
+        </figure>
+      </div>
+      <p class="paper-combined-caption">Construction pipeline of VideoRover-Bench.</p>
+    </article>
+
+    <article class="paper-highlight" id="results">
+      <div class="paper-highlight-copy has-text-centered">
+        <h2 class="title is-4">Main Results</h2>
+        <p>
+          On VideoDR and VideoRover-Bench, VideoRover-8B-RL performs on par with proprietary models in
+          the direct-answer setting and outperforms larger open-source models given the same tools.
+          Results on general video benchmarks demonstrate broader generalization.
+        </p>
+      </div>
+
+      <div class="paper-results-grid">
+        <figure class="paper-table-card paper-result-figure">
+          <figcaption>
+            Main results on VideoDR and VideoRover-Bench. All values are accuracy (%). S and L denote
+            short and long videos, respectively. Avg. is the unweighted mean over VideoDR and the six
+            VideoRover-Bench subsets. VideoRover variants are shaded in blue. Within the open-source
+            agentic group, the best and second-best results are shown in bold and underlined,
+            respectively. <sup>†</sup> denotes the result reported in its original paper.
+          </figcaption>
+          <a href="./static/images/paper/main-results-table.png" target="_blank" rel="noopener">
+            <img src="./static/images/paper/main-results-table.png"
+                 alt="Main results on VideoDR and VideoRover-Bench"
+                 loading="lazy" decoding="async">
+          </a>
+        </figure>
+
+        <figure class="paper-table-card paper-result-figure">
+          <figcaption class="paper-caption-centered">
+            Results on general video understanding benchmarks. The best and second-best results are
+            shown in bold and underlined, respectively.
+          </figcaption>
+          <a href="./static/images/paper/general-results-table.png" target="_blank" rel="noopener">
+            <img src="./static/images/paper/general-results-table.png"
+                 alt="Results on general video understanding benchmarks"
+                 loading="lazy" decoding="async">
+          </a>
+        </figure>
+
+        <div class="paper-table-card" hidden>
+          <div class="paper-table-scroll" tabindex="0" aria-label="Scrollable main Video Deep Research results table">
+            <table class="paper-results-table paper-results-table-main">
+              <caption>
+                Main results on VideoDR and VideoRover-Bench. All values are accuracy (%). S and L denote
+                short and long videos, respectively. Avg. is the unweighted mean over VideoDR and the six
+                VideoRover-Bench subsets. VideoRover variants are shaded in blue. Within the open-source
+                agentic group, the best and second-best results are shown in bold and underlined,
+                respectively. <sup>†</sup> denotes the result reported in its original paper.
+              </caption>
+              <thead>
+                <tr>
+                  <th rowspan="2" scope="col">Model</th>
+                  <th scope="col">VideoDR</th>
+                  <th colspan="6" scope="colgroup">VideoRover-Bench</th>
+                  <th rowspan="2" scope="col">Avg.</th>
+                </tr>
+                <tr>
+                  <th scope="col">Acc.</th>
+                  <th scope="col">S-Easy</th>
+                  <th scope="col">S-Medium</th>
+                  <th scope="col">S-Hard</th>
+                  <th scope="col">L-Easy</th>
+                  <th scope="col">L-Medium</th>
+                  <th scope="col">L-Hard</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="paper-table-group"><th colspan="9" scope="rowgroup">Proprietary Models (Direct Answer)</th></tr>
+                <tr><th scope="row">GPT-5</th><td>57.00</td><td>70.00</td><td>64.00</td><td>36.00</td><td>64.00</td><td>50.00</td><td>44.00</td><td>55.00</td></tr>
+                <tr><th scope="row">GPT-5.2</th><td>50.00</td><td>68.00</td><td>52.00</td><td>32.00</td><td>70.00</td><td>40.00</td><td>46.00</td><td>51.14</td></tr>
+                <tr><th scope="row">GPT-5.4</th><td>62.00</td><td>74.00</td><td>68.00</td><td>36.00</td><td>70.00</td><td>44.00</td><td>54.00</td><td>58.29</td></tr>
+                <tr><th scope="row">Gemini-2.5-Flash</th><td>47.00</td><td>54.00</td><td>30.00</td><td>30.00</td><td>54.00</td><td>30.00</td><td>28.00</td><td>39.00</td></tr>
+                <tr><th scope="row">Gemini-2.5-Pro</th><td>54.00</td><td>66.00</td><td>54.00</td><td>30.00</td><td>62.00</td><td>34.00</td><td>50.00</td><td>50.00</td></tr>
+                <tr><th scope="row">Gemini-3-Flash</th><td>59.00</td><td>74.00</td><td>70.00</td><td>48.00</td><td>58.00</td><td>52.00</td><td>48.00</td><td>58.43</td></tr>
+                <tr><th scope="row">Gemini-3-Pro</th><td>55.00</td><td>78.00</td><td>60.00</td><td>42.00</td><td>72.00</td><td>40.00</td><td>52.00</td><td>57.00</td></tr>
+
+                <tr class="paper-table-group"><th colspan="9" scope="rowgroup">Open-Source Models (Direct Answer)</th></tr>
+                <tr><th scope="row">Qwen3-VL-8B</th><td>9.00</td><td>8.00</td><td>8.00</td><td>8.00</td><td>18.00</td><td>6.00</td><td>10.00</td><td>9.57</td></tr>
+                <tr><th scope="row">Qwen3-VL-30B-A3B</th><td>10.00</td><td>14.00</td><td>16.00</td><td>12.00</td><td>22.00</td><td>10.00</td><td>12.00</td><td>13.71</td></tr>
+                <tr><th scope="row">Qwen3.5-27B</th><td>28.00</td><td>32.00</td><td>30.00</td><td>14.00</td><td>28.00</td><td>22.00</td><td>12.00</td><td>23.71</td></tr>
+                <tr><th scope="row">Qwen3.5-35B-A3B</th><td>24.00</td><td>36.00</td><td>28.00</td><td>14.00</td><td>36.00</td><td>20.00</td><td>14.00</td><td>24.57</td></tr>
+                <tr><th scope="row">Qwen3.6-27B</th><td>23.00</td><td>30.00</td><td>30.00</td><td>16.00</td><td>38.00</td><td>18.00</td><td>12.00</td><td>23.86</td></tr>
+                <tr><th scope="row">Qwen3.6-35B-A3B</th><td>28.00</td><td>36.00</td><td>18.00</td><td>14.00</td><td>26.00</td><td>22.00</td><td>16.00</td><td>22.86</td></tr>
+
+                <tr class="paper-table-group"><th colspan="9" scope="rowgroup">Open-Source Models (Agentic Tool Use)</th></tr>
+                <tr><th scope="row">Qwen3-VL-8B</th><td>29.00</td><td>58.00</td><td>38.00</td><td>16.00</td><td>42.00</td><td>30.00</td><td>10.00</td><td>31.86</td></tr>
+                <tr><th scope="row">Qwen3-VL-30B-A3B</th><td>31.00</td><td>58.00</td><td>34.00</td><td>14.00</td><td>50.00</td><td>22.00</td><td>16.00</td><td>32.14</td></tr>
+                <tr><th scope="row">Qwen3.5-27B</th><td><span class="second-best">54.00</span></td><td><span class="second-best">78.00</span></td><td>54.00</td><td>36.00</td><td><span class="second-best">68.00</span></td><td><strong>56.00</strong></td><td><strong>42.00</strong></td><td><span class="second-best">55.43</span></td></tr>
+                <tr><th scope="row">Qwen3.5-35B-A3B</th><td>42.00</td><td>56.00</td><td>42.00</td><td>18.00</td><td>38.00</td><td>22.00</td><td>20.00</td><td>34.00</td></tr>
+                <tr><th scope="row">Qwen3.6-27B</th><td><span class="second-best">54.00</span></td><td>74.00</td><td><strong>64.00</strong></td><td><span class="second-best">38.00</span></td><td>66.00</td><td>46.00</td><td>34.00</td><td>53.71</td></tr>
+                <tr><th scope="row">Qwen3.6-35B-A3B</th><td>50.00</td><td>76.00</td><td><span class="second-best">62.00</span></td><td>34.00</td><td>62.00</td><td>48.00</td><td><span class="second-best">40.00</span></td><td>53.14</td></tr>
+                <tr><th scope="row">VideoSearcher-8B</th><td>53.00<sup>†</sup></td><td>64.00</td><td>46.00</td><td>28.00</td><td>54.00</td><td>36.00</td><td>22.00</td><td>43.29</td></tr>
+                <tr class="paper-table-ours"><th scope="row">VideoRover-8B-SFT (Ours)</th><td>39.00</td><td>58.00</td><td>44.00</td><td>30.00</td><td>54.00</td><td>32.00</td><td>18.00</td><td>39.29</td></tr>
+                <tr class="paper-table-ours"><th scope="row">VideoRover-8B-RL (Ours)</th><td><strong>56.00</strong></td><td><strong>80.00</strong></td><td><strong>64.00</strong></td><td><strong>40.00</strong></td><td><strong>70.00</strong></td><td><span class="second-best">52.00</span></td><td><strong>42.00</strong></td><td><strong>57.71</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="paper-table-card" hidden>
+          <div class="paper-table-scroll" tabindex="0" aria-label="Scrollable general video understanding results table">
+            <table class="paper-results-table paper-results-table-general">
+              <caption>
+                Results on general video understanding benchmarks. The best and second-best results are
+                shown in bold and underlined, respectively.
+              </caption>
+              <thead>
+                <tr>
+                  <th rowspan="3" scope="col">Model</th>
+                  <th scope="col">MLVU</th>
+                  <th colspan="4" scope="colgroup">Video-MMMU</th>
+                  <th colspan="4" scope="colgroup">Video-MME (w/o subtitles)</th>
+                  <th scope="col">LVBench</th>
+                </tr>
+                <tr>
+                  <th>≈ 651s</th>
+                  <th colspan="4">≈ 506s</th>
+                  <th colspan="4">≈ 1018s</th>
+                  <th>≈ 4101s</th>
+                </tr>
+                <tr>
+                  <th scope="col">M-Avg</th><th scope="col">Adapt.</th><th scope="col">Compr.</th><th scope="col">Percep.</th><th scope="col">Avg.</th>
+                  <th scope="col">Short</th><th scope="col">Medium</th><th scope="col">Long</th><th scope="col">Overall</th><th scope="col">Avg.</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">Video-R1</th><td>52.3</td><td>46.5</td><td><span class="second-best">49.0</span></td><td>63.6</td><td>53.0</td><td>71.3</td><td>62.8</td><td>53.2</td><td>62.4</td><td>39.8</td></tr>
+                <tr><th scope="row">VideoChat-R1</th><td><span class="second-best">56.5</span></td><td>45.5</td><td>43.6</td><td>62.0</td><td>50.4</td><td>72.5</td><td>63.1</td><td>53.8</td><td>63.1</td><td>41.1</td></tr>
+                <tr><th scope="row">VideoRFT</th><td>51.5</td><td>45.5</td><td>45.0</td><td>62.0</td><td>50.8</td><td>70.8</td><td>63.5</td><td>54.2</td><td>62.8</td><td>39.6</td></tr>
+                <tr><th scope="row">VideoChat-R1.5</th><td>55.9</td><td><span class="second-best">47.3</span></td><td>45.0</td><td>64.0</td><td>52.1</td><td>71.1</td><td><span class="second-best">64.6</span></td><td>52.5</td><td>62.7</td><td>40.6</td></tr>
+                <tr><th scope="row">LongVT</th><td>48.6</td><td>45.1</td><td>45.0</td><td>52.6</td><td>47.6</td><td>66.6</td><td>57.6</td><td>50.7</td><td>58.3</td><td>40.2</td></tr>
+                <tr><th scope="row">Video-MTR</th><td>50.9</td><td>40.5</td><td>39.6</td><td>58.3</td><td>46.1</td><td>71.6</td><td>61.1</td><td>50.1</td><td>60.9</td><td>39.8</td></tr>
+                <tr><th scope="row">VideoTemp-o3</th><td>50.5</td><td>41.9</td><td>41.3</td><td>58.3</td><td>47.2</td><td>70.1</td><td>61.0</td><td>49.8</td><td>60.3</td><td>41.5</td></tr>
+                <tr><th scope="row">Video-o3</th><td>55.1</td><td><span class="second-best">47.3</span></td><td>46.3</td><td>63.3</td><td>52.3</td><td><strong>74.1</strong></td><td>63.8</td><td>50.4</td><td>62.8</td><td>41.5</td></tr>
+                <tr><th scope="row">VideoZoomer</th><td>51.9</td><td>39.7</td><td>43.3</td><td>60.6</td><td>47.9</td><td>73.0</td><td>61.8</td><td>56.3</td><td>63.7</td><td>42.9</td></tr>
+                <tr class="paper-table-divider"><th scope="row">Qwen2.5-VL-7B</th><td>50.9</td><td>44.8</td><td>47.6</td><td>61.0</td><td>51.1</td><td>68.3</td><td>59.2</td><td>51.3</td><td>59.6</td><td>37.2</td></tr>
+                <tr><th scope="row">Qwen3-VL-8B</th><td>55.5</td><td><span class="second-best">47.3</span></td><td>45.6</td><td><span class="second-best">69.0</span></td><td><span class="second-best">54.0</span></td><td>72.6</td><td>62.3</td><td><span class="second-best">57.2</span></td><td><span class="second-best">64.0</span></td><td><span class="second-best">43.7</span></td></tr>
+                <tr class="paper-table-ours"><th scope="row">VideoRover-8B-RL (Ours)</th><td><strong>57.3</strong></td><td><strong>62.0</strong></td><td><strong>63.3</strong></td><td><strong>70.6</strong></td><td><strong>65.3</strong></td><td><span class="second-best">73.8</span></td><td><strong>67.8</strong></td><td><strong>59.1</strong></td><td><strong>66.9</strong></td><td><strong>45.0</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </article>
+
   </div>
 </section>
 
@@ -324,7 +570,7 @@
     </div>
 
     <div class="case-demo-pagination has-text-centered" aria-live="polite">
-      <span id="case-demo-current">1</span> / <span id="case-demo-total">2</span>
+      <span id="case-demo-current">1</span> / <span id="case-demo-total">5</span>
     </div>
   </div>
 </section>

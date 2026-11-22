@@ -457,6 +457,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var cases = [
     {
+      id: '13',
       video: './static/videos/ESTOQ47hvdg.mp4',
       poster: './static/frames/13_0b5414936196/frame_0000_t0.000s.png',
       duration: '01:47',
@@ -464,6 +465,7 @@ document.addEventListener('DOMContentLoaded', function () {
       steps: firstCaseSteps
     },
     {
+      id: '289',
       video: './static/videos/3yIk16Bg64A.mp4',
       poster: './static/frames/289_9c0c56413674/frame_0019_t2798.645s.png',
       duration: '55:14',
@@ -620,8 +622,93 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function parseTrajectoryRecords(rawText) {
-    var trimmed = rawText.trim().replace(/,\s*$/, '');
+    var trimmed = rawText.trim();
+    var finalTokenIndex = trimmed.charAt(0) === '[' ? trimmed.lastIndexOf(']') : trimmed.lastIndexOf('}');
+    if (finalTokenIndex !== -1) trimmed = trimmed.slice(0, finalTokenIndex + 1);
     return JSON.parse(trimmed.charAt(0) === '[' ? trimmed : '[' + trimmed + ']');
+  }
+
+  function createOverviewFrames() {
+    return Array.from({ length: 64 }, function (_, index) {
+      var frameNumber = String(index + 1).padStart(3, '0');
+      return ['frame_' + frameNumber + '.jpg', '#' + String(index + 1).padStart(2, '0')];
+    });
+  }
+
+  function getFrameCaption(filename) {
+    var timestamp = filename.match(/_t([0-9.]+)s/);
+    return timestamp ? timestamp[1] + 's' : 'Visual evidence';
+  }
+
+  function getToolName(message) {
+    var matches = Array.from(String(message || '').matchAll(/"name"\s*:\s*"([^"]+)"/g));
+    return matches.length ? matches[matches.length - 1][1] : 'tool';
+  }
+
+  function buildCaseSteps(record, assetRoot) {
+    var frameGroups = record.frame_paths || [];
+    var frameGroupIndex = 0;
+    var steps = [{
+      kind: 'overview',
+      label: 'Video sampling · 64 frames',
+      text: 'The original video is uniformly sampled into 64 frames before reasoning begins.',
+      frames: createOverviewFrames(),
+      frameRoot: assetRoot + 'overview/',
+      overview: true,
+      delayAfter: 1900
+    }];
+
+    record.trajectory.slice(2).forEach(function (message, relativeIndex) {
+      if (message.role === 'assistant') {
+        steps.push({
+          kind: 'model',
+          label: 'VideoRover',
+          text: message.content,
+          raw: true
+        });
+        return;
+      }
+
+      if (message.role !== 'user') return;
+
+      var rawContent = String(message.content || '');
+      var imageCount = (rawContent.match(/<image>/g) || []).length;
+      var frames;
+
+      if (imageCount && frameGroupIndex < frameGroups.length) {
+        var frameGroup = frameGroups[frameGroupIndex++];
+        var framePaths = Array.isArray(frameGroup) ? frameGroup : [frameGroup];
+        frames = framePaths.map(function (framePath) {
+          var filename = String(framePath).split('/').pop();
+          return [filename, getFrameCaption(filename)];
+        });
+      }
+
+      var trajectoryIndex = relativeIndex + 2;
+      var previousMessage = record.trajectory[trajectoryIndex - 1];
+      var toolName = getToolName(previousMessage && previousMessage.content);
+      var startsWithImage = /^\s*<image>/.test(rawContent);
+
+      steps.push({
+        kind: frames ? 'evidence' : 'results',
+        label: toolName + ' result',
+        text: rawContent.replace(/<image>/g, '').replace(/\n{3,}/g, '\n\n').trim(),
+        frames: frames,
+        frameRoot: assetRoot,
+        framesFirst: Boolean(startsWithImage && frames && frames.length),
+        single: Boolean(frames && frames.length === 1),
+        raw: true
+      });
+    });
+
+    steps.push({
+      kind: 'answer',
+      label: 'Ground Truth · Correct',
+      text: 'The model reasoning matches the ground-truth answer.',
+      answer: String(record.answer || record.ground_truth) + ' ✓'
+    });
+
+    return steps;
   }
 
   function applyRawTrajectory(record, steps) {
@@ -677,6 +764,38 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!footballCase || !coinCase) throw new Error('Required case records were not found in case.json.');
         applyRawTrajectory(footballCase, firstCaseSteps);
         applyRawTrajectory(coinCase, secondCaseSteps);
+      })
+      .then(function () {
+        var extraCases = [
+          { id: '74', duration: '01:53' },
+          { id: '55', duration: '08:00' },
+          { id: '99', duration: '09:58' }
+        ];
+
+        return Promise.all(extraCases.map(function (caseInfo) {
+          var assetRoot = './static/cases/' + caseInfo.id + '/';
+          return fetch(assetRoot + 'trajectory.json', { cache: 'no-store' })
+            .then(function (response) {
+              if (!response.ok) throw new Error('Unable to load trajectory ' + caseInfo.id + ': HTTP ' + response.status);
+              return response.text();
+            })
+            .then(function (rawText) {
+              var record = parseTrajectoryRecords(rawText)[0];
+              cases.push({
+                id: caseInfo.id,
+                video: assetRoot + 'video.mp4',
+                poster: assetRoot + 'overview/frame_001.jpg',
+                duration: caseInfo.duration,
+                question: record.question,
+                steps: buildCaseSteps(record, assetRoot)
+              });
+            });
+        })).then(function () {
+          var caseOrder = ['74', '55', '99', '13', '289'];
+          cases.sort(function (leftCase, rightCase) {
+            return caseOrder.indexOf(leftCase.id) - caseOrder.indexOf(rightCase.id);
+          });
+        });
       });
   }
 
